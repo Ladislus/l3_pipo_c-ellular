@@ -1,74 +1,86 @@
 #include "structure.h"
 
-grille* init(unsigned char rule) {
-  //Allocation de la mémoire de la structure retournée
-  grille* returned_grille = (grille*)malloc(sizeof(grille));
+automaton* init(unsigned char rule) {
+    automaton* returned_automaton = (automaton*)malloc(sizeof(automaton));
 
-  returned_grille->rule_i = rule;
-  returned_grille->rule_b = rule_to_binary(rule);
-  returned_grille->values = (int*)calloc(SIZE, sizeof(int));
+    returned_automaton->integer_rule = rule;
+    returned_automaton->rule = convert_rule_binary(rule);
 
-  return returned_grille;
+    returned_automaton->table = (unsigned char**)malloc(8 * sizeof(unsigned char*));
+    for(size_t i = 0; i < 8; i++) returned_automaton->table[i] = (unsigned char*)calloc(3, sizeof(unsigned char));
+    
+    returned_automaton->table[0][0] = 1; returned_automaton->table[0][1] = 1; returned_automaton->table[0][2] = 1;
+    returned_automaton->table[1][0] = 1; returned_automaton->table[1][1] = 1;
+    returned_automaton->table[2][0] = 1; returned_automaton->table[2][2] = 1;
+    returned_automaton->table[3][0] = 1;
+    returned_automaton->table[4][1] = 1; returned_automaton->table[4][2] = 1; 
+    returned_automaton->table[5][1] = 1;
+    returned_automaton->table[6][2] = 1;
+
+    returned_automaton->states = (unsigned char**)malloc(ITERATIONS * sizeof(unsigned char*));
+    for(size_t i = 0; i < ITERATIONS; i++) {
+        returned_automaton->states[i] = (unsigned char*)calloc(SIZE, sizeof(unsigned char));
+    }
+    returned_automaton->states[0][SIZE - 1] = 1;
+
+    return returned_automaton;
 }
 
-void destroy(grille** g) {
+void destroy(automaton** a) {
+    for(size_t i = 0; i < ITERATIONS; i++) {
+        free((*a)->states[i]);
+        (*a)->states[i] = NULL;
+    }
+    free((*a)->states);
+    (*a)->states = NULL;
 
-  free((*g)->values);
-  (*g)->values = NULL;
+    for(size_t i = 0; i < 8; i++) {
+        free((*a)->table[i]);
+        (*a)->table[i] = NULL;
+    }
+    free((*a)->table);
+    (*a)->table = NULL;
 
-  free(*g);
+    free((*a)->rule);
+    (*a)->rule = NULL;
+
+    free(*a);
 }
 
-int* get_neighbors(grille* const g, size_t index) {
-
-  int* returned_neighbors = (int*)malloc(sizeof(int) * 2);
-
-  returned_neighbors[0] = (!index ? g->values[SIZE -1] : g->values[index - 1]);
-  returned_neighbors[1] = g->values[index];
-  returned_neighbors[2] = ((index == (SIZE - 1)) ? g->values[0] : g->values[index + 1]);
-
-  return returned_neighbors;
+void start(automaton* a) {
+    for(size_t i = 1; i < ITERATIONS; i++) {
+        update_state(a, i);
+    }
+    print(a);
 }
 
-void new_state(grille* g) {
-  int* res_temp = (int*)calloc(SIZE, sizeof(int));
-  for (size_t i = 0; i < SIZE; i++) {
-    int* temp = get_neighbors(g, i);
-    if (temp[0]==1 && temp[1]==1 && temp[2]==1) {
-      res_temp[i] = g->rule_b[0];
+unsigned char apply_rule(automaton* a, unsigned char* neighbours) {
+    for(size_t i = 0; i < 8; i++) {
+        if(compare_state(a, i, neighbours)) return (a->rule[i] - '0');
     }
-    if (temp[0]==1 && temp[1]==1 && temp[2]==0) {
-      res_temp[i] = g->rule_b[1];
-    }
-    if (temp[0]==1 && temp[1]==0 && temp[2]==1) {
-      res_temp[i] = g->rule_b[2];
-    }
-    if (temp[0]==1 && temp[1]==0 && temp[2]==0) {
-      res_temp[i] = g->rule_b[3];
-    }
-    if (temp[0]==0 && temp[1]==1 && temp[2]==1) {
-      res_temp[i] = g->rule_b[4];
-    }
-    if (temp[0]==0 && temp[1]==1 && temp[2]==0) {
-      res_temp[i] = g->rule_b[5];
-    }
-    if (temp[0]==0 && temp[1]==0 && temp[2]==1) {
-      res_temp[i] = g->rule_b[6];
-    }
-    if (temp[0]==0 && temp[1]==0 && temp[2]==0) {
-      res_temp[i] = g->rule_b[7];
-    }
-    else{
-      return;
-    }
-  }
-  g->values = res_temp;
-  printf("%ls\n", g->values);
-  return NULL;
+    fprintf(stderr, "No matching rule found, exiting ...\n");
+    exit(EXIT_FAILURE);
 }
 
-void play(grille* g) {
-  for(size_t i = 0; i < ITERATIONS; i++) {
+bool compare_state(automaton* a, size_t index, unsigned char* tested_state) {
+    return (a->table[index][0] == tested_state[0] && a->table[index][1] == tested_state[1] && a->table[index][2] == tested_state[2]);
+}
 
-  }
+void update_state(automaton* a, size_t iteration) {
+    for(size_t i = 0; i < SIZE; i++) {
+        unsigned char* neighbours = get_neighbours(a, iteration, i);
+        a->states[iteration][i] = apply_rule(a, neighbours);
+        free(neighbours);
+        neighbours = NULL;
+    }
+}
+
+unsigned char* get_neighbours(automaton* a, size_t iteration, size_t index) {
+    unsigned char* returned_neighbours = (unsigned char*)malloc(3 * sizeof(unsigned char));
+
+    returned_neighbours[0] = (!index ? a->states[iteration - 1][SIZE - 1] : a->states[iteration - 1][index - 1]);
+    returned_neighbours[1] = a->states[iteration - 1][index];
+    returned_neighbours[2] = (index == (SIZE - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
+
+    return returned_neighbours;
 }

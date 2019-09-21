@@ -10,7 +10,7 @@ DFLAGS := -ggdb
 COMPILEUR := $(CC) $(WFLAGS) $(SFLAGS) $(IFLAGS) $(DFLAGS)
 
 #Noms des fichiers
-FILES := obj/main.o obj/structure.o obj/printing.o obj/convert.o
+FILES := obj/automaton.o obj/structure.o obj/converters.o obj/printers.o obj/constants.o
 #Nom de l'éxécutable
 EXECUTABLE := exec
 
