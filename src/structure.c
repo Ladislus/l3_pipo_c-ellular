@@ -6,17 +6,6 @@ automaton* init(unsigned char rule) {
     returned_automaton->integer_rule = rule;
     returned_automaton->rule = convert_rule_binary(rule);
 
-    returned_automaton->table = (unsigned char**)malloc(8 * sizeof(unsigned char*));
-    for(size_t i = 0; i < 8; i++) returned_automaton->table[i] = (unsigned char*)calloc(3, sizeof(unsigned char));
-    
-    returned_automaton->table[0][0] = 1; returned_automaton->table[0][1] = 1; returned_automaton->table[0][2] = 1;
-    returned_automaton->table[1][0] = 1; returned_automaton->table[1][1] = 1;
-    returned_automaton->table[2][0] = 1; returned_automaton->table[2][2] = 1;
-    returned_automaton->table[3][0] = 1;
-    returned_automaton->table[4][1] = 1; returned_automaton->table[4][2] = 1; 
-    returned_automaton->table[5][1] = 1;
-    returned_automaton->table[6][2] = 1;
-
     returned_automaton->states = (unsigned char**)malloc(ITERATIONS * sizeof(unsigned char*));
     for(size_t i = 0; i < ITERATIONS; i++) {
         returned_automaton->states[i] = (unsigned char*)calloc(SIZE, sizeof(unsigned char));
@@ -34,13 +23,6 @@ void destroy(automaton** a) {
     free((*a)->states);
     (*a)->states = NULL;
 
-    for(size_t i = 0; i < 8; i++) {
-        free((*a)->table[i]);
-        (*a)->table[i] = NULL;
-    }
-    free((*a)->table);
-    (*a)->table = NULL;
-
     free((*a)->rule);
     (*a)->rule = NULL;
 
@@ -56,14 +38,14 @@ void start(automaton* a) {
 
 unsigned char apply_rule(automaton* a, unsigned char* neighbours) {
     for(size_t i = 0; i < 8; i++) {
-        if(compare_state(a, i, neighbours)) return (a->rule[i] - '0');
+        if(compare_state(i, neighbours)) return (a->rule[i] - '0');
     }
     fprintf(stderr, "No matching rule found, exiting ...\n");
     exit(EXIT_FAILURE);
 }
 
-bool compare_state(automaton* a, size_t index, unsigned char* tested_state) {
-    return (a->table[index][0] == tested_state[0] && a->table[index][1] == tested_state[1] && a->table[index][2] == tested_state[2]);
+bool compare_state(size_t index, unsigned char* tested_state) {
+    return ((TABLE[index][0] - '0') == tested_state[0] && (TABLE[index][1] - '0') == tested_state[1] && (TABLE[index][2] - '0') == tested_state[2]);
 }
 
 void update_state(automaton* a, size_t iteration) {

@@ -19,7 +19,5 @@ int main(int argc, char** argv) {
     start(a);
     destroy(&a);
 
-    printf("%c\n", TABLE[0][0]);
-
     return EXIT_SUCCESS;
 }
