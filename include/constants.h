@@ -13,6 +13,7 @@ struct automaton {
     unsigned char integer_rule; //The rule as integer (Before conversion)
     unsigned char** states; //The array of all the states of the automaton
     unsigned char* rule; //The rule as binary (After conversion)
+    void (*_printer)(void* automaton);
 };
 
 typedef struct automaton automaton;

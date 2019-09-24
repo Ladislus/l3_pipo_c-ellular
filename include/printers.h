@@ -3,7 +3,6 @@
 
 #include "constants.h"
 
-void print(automaton* a);
-void print_lign(automaton* a, size_t index);
+void default_print(void* a);
 
 #endif

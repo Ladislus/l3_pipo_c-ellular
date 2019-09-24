@@ -1,6 +1,6 @@
 #include "structure.h"
 
-automaton* init(unsigned char rule) {
+automaton* init(unsigned char rule, void (*_printer)(void*)) {
     automaton* returned_automaton = (automaton*)malloc(sizeof(automaton));
 
     returned_automaton->integer_rule = rule;
@@ -11,6 +11,8 @@ automaton* init(unsigned char rule) {
         returned_automaton->states[i] = (unsigned char*)calloc(SIZE, sizeof(unsigned char));
     }
     returned_automaton->states[0][SIZE - 1] = 1;
+
+    returned_automaton->_printer = _printer;
 
     return returned_automaton;
 }
@@ -65,4 +67,8 @@ unsigned char* get_neighbours(automaton* a, size_t iteration, size_t index) {
     returned_neighbours[2] = (index == (SIZE - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
 
     return returned_neighbours;
+}
+
+void print(automaton* a) {
+  (a->_printer)((void*)a);
 }
