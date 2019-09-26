@@ -1,16 +1,34 @@
 #include "structure.h"
 
-automaton* init(unsigned char rule, void (*_printer)(void*)) {
+automaton* init(unsigned char states_number,
+                unsigned char size,
+                unsigned char iterations,
+                unsigned char starting_position,
+                unsigned char* rule,
+                void (*_printer)(void*)) {
+
+    assert(starting_position <= (size - 1));
+    assert(strlen(rule) == (((states_number - 1) * 3 ) + 1));
+
     automaton* returned_automaton = (automaton*)malloc(sizeof(automaton));
 
+    returned_automaton->states_number = (states_number == NULL ? DEFAULT_STATES_NUMBER : states_number);
+    returned_automaton->size = (size == NULL ? DEFAULT_SIZE : size);
+    returned_automaton->iterations = (iterations == NULL ? DEFAULT_ITERATIONS : iterations);
+
+    returned_automaton->rule = rule;
+
+    /* DEPRECATED
     returned_automaton->integer_rule = rule;
     returned_automaton->rule = convert_rule_binary(rule);
+    */
 
-    returned_automaton->states = (unsigned char**)malloc(ITERATIONS * sizeof(unsigned char*));
-    for(size_t i = 0; i < ITERATIONS; i++) {
-        returned_automaton->states[i] = (unsigned char*)calloc(SIZE, sizeof(unsigned char));
+    returned_automaton->states = (unsigned char**)malloc(returned_automaton->ITERATIONS * sizeof(unsigned char*));
+    for(size_t i = 0; i < returned_automaton->ITERATIONS; i++) {
+        returned_automaton->states[i] = (unsigned char*)calloc(returned_automaton->SIZE, sizeof(unsigned char));
     }
-    returned_automaton->states[0][SIZE - 1] = 1;
+    if(STARTING_POSITION == NULL) returned_automaton->states[0][returned_automaton->SIZE - 1] = 1;
+    else returned_automaton->states[0][STARTING_POSITION] = 1;
 
     returned_automaton->_printer = _printer;
 
@@ -18,7 +36,7 @@ automaton* init(unsigned char rule, void (*_printer)(void*)) {
 }
 
 void destroy(automaton** a) {
-    for(size_t i = 0; i < ITERATIONS; i++) {
+    for(size_t i = 0; i < (*a)->iterations; i++) {
         free((*a)->states[i]);
         (*a)->states[i] = NULL;
     }
@@ -32,7 +50,7 @@ void destroy(automaton** a) {
 }
 
 void start(automaton* a) {
-    for(size_t i = 1; i < ITERATIONS; i++) {
+    for(size_t i = 1; i < a->iterations; i++) {
         update_state(a, i);
     }
     print(a);
@@ -51,7 +69,7 @@ bool compare_state(size_t index, unsigned char* tested_state) {
 }
 
 void update_state(automaton* a, size_t iteration) {
-    for(size_t i = 0; i < SIZE; i++) {
+    for(size_t i = 0; i < a->size; i++) {
         unsigned char* neighbours = get_neighbours(a, iteration, i);
         a->states[iteration][i] = apply_rule(a, neighbours);
         free(neighbours);
@@ -62,9 +80,9 @@ void update_state(automaton* a, size_t iteration) {
 unsigned char* get_neighbours(automaton* a, size_t iteration, size_t index) {
     unsigned char* returned_neighbours = (unsigned char*)malloc(3 * sizeof(unsigned char));
 
-    returned_neighbours[0] = (!index ? a->states[iteration - 1][SIZE - 1] : a->states[iteration - 1][index - 1]);
+    returned_neighbours[0] = (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
     returned_neighbours[1] = a->states[iteration - 1][index];
-    returned_neighbours[2] = (index == (SIZE - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
+    returned_neighbours[2] = (index == (a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
 
     return returned_neighbours;
 }

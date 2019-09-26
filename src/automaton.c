@@ -8,7 +8,8 @@ int main(int argc, char** argv) {
 
     if(argc <= 1) {
         printf("\nNo argument provided, taking default rule\n");
-        a = init(DEFAULT_RULE, &default_print);
+        a = init(4, NULL, NULL, NULL,
+                 "01000000000", &default_print);
     }
     else {
         int rule;
