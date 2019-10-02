@@ -4,5 +4,6 @@
 #include "constants.h"
 
 void default_print(void* a);
+void default_saver(void* a);
 
 #endif

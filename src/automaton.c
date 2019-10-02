@@ -6,17 +6,7 @@ int main(int argc, char** argv) {
 
     automaton* a = NULL;
 
-    if(argc <= 1) {
-        printf("\nNo argument provided, taking default rule\n");
-        a = init(4, NULL, NULL, NULL,
-                 "01000000000", &default_print);
-    }
-    else {
-        int rule;
-        sscanf(argv[1], "%d", &rule);
-        assert(rule < 256);
-        a = init(rule, &default_print);
-    }
+    a = init(4, 10, 3, 9, "0100000000", &default_print);
 
     start(a);
     destroy(&a);

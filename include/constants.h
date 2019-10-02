@@ -15,7 +15,7 @@ struct automaton {
     unsigned char iterations;
     // unsigned char integer_rule; //The rule as integer, before conversion (DEPRECATED)
     unsigned char** states; //The array of all the states of the automaton
-    unsigned char* rule; //The rule as binary
+    unsigned char* rule; //The rule
     void (*_printer)(void* automaton); //Printing function used
 };
 
