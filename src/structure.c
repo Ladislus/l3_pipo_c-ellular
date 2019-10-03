@@ -14,11 +14,20 @@ automaton* init(unsigned char states_number,
 
     automaton* returned_automaton = (automaton*)malloc(sizeof(automaton));
 
+    printf("PRE-BUILD\n");
+    printf("States : %d\n", states_number);
+    printf("Size : %d\n", size);
+    printf("Iterations : %d\n", iterations);
+    printf("Start : %d\n", starting_position);
+    printf("Rule : %s\n\n", rule);
+
     returned_automaton->states_number = states_number;
     returned_automaton->size = size;
     returned_automaton->iterations = iterations;
-    returned_automaton->rule = (unsigned char*)rule;
     returned_automaton->_printer = _printer;
+
+    returned_automaton->rule = (char*)malloc(sizeof(char) * (strlen(rule) + 1));
+    strcpy(returned_automaton->rule, rule);
 
     /* DEPRECATED
     returned_automaton->integer_rule = rule;
@@ -31,11 +40,49 @@ automaton* init(unsigned char states_number,
     }
     returned_automaton->states[0][starting_position] = 1;
 
+    printf("POST-BUILD\n");
+    printf("States : %d\n", returned_automaton->states_number);
+    printf("Size : %d\n", returned_automaton->size);
+    printf("Iterations : %d\n", returned_automaton->iterations);
+    printf("Rule : %s\n", returned_automaton->rule);
+    printf("\n");
+
     return returned_automaton;
 }
 
-automaton* init_file(FILE* file, void (* _printer)(void*)) {
-  exit(EXIT_SUCCESS);
+automaton* init_file(char* file_path, void (* _printer)(void*)) {
+
+    FILE* file = fopen(file_path, "r");
+
+    if(file == NULL) exit(EXIT_FAILURE);
+
+    int states_number, size, iteration, starting_position;
+    char rule[128];
+
+    fscanf(file, "States=%d;", &states_number);
+    fseek(file, +1, SEEK_CUR);
+
+    fscanf(file, "Size=%d;", &size);
+    fseek(file, +1, SEEK_CUR);
+
+    fscanf(file, "Iteration=%d;", &iteration);
+    fseek(file, +1, SEEK_CUR);
+
+    fscanf(file, "Start=%d;", &starting_position);
+    fseek(file, +1, SEEK_CUR);
+
+    fscanf(file, "Rule=%s", rule);
+    rule[strlen(rule) - 1] = '\0';
+
+    fclose(file);
+    file = NULL;
+
+    return init(states_number,
+                size,
+                iteration,
+                starting_position,
+                rule,
+                _printer);
 }
 
 void destroy(automaton** a) {
@@ -45,6 +92,9 @@ void destroy(automaton** a) {
     }
     free((*a)->states);
     (*a)->states = NULL;
+
+    free((*a)->rule);
+    (*a)->rule = NULL;
 
     free(*a);
 }

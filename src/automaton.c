@@ -6,7 +6,7 @@ int main(int argc, char** argv) {
 
     automaton* a = NULL;
 
-    a = init(4, 10, 3, 9, "0100000000", &default_print);
+    a = init_file("/home/ladislus/Bureau/C-ellular-project/config.txt", &default_print);
 
     start(a);
     destroy(&a);

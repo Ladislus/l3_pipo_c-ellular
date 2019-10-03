@@ -12,7 +12,7 @@ automaton* init(unsigned char states_number,
                 unsigned char starting_position,
                 char* rule,
                 void (*_printer)(void*));
-automaton* init_file(FILE* file, void (* _printer)(void*));
+automaton* init_file(char* file_path, void (* _printer)(void*));
 
 void destroy(automaton** a);
 void start(automaton* a);
