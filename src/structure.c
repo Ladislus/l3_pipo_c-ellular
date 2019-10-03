@@ -14,13 +14,6 @@ automaton* init(unsigned char states_number,
 
     automaton* returned_automaton = (automaton*)malloc(sizeof(automaton));
 
-    printf("PRE-BUILD\n");
-    printf("States : %d\n", states_number);
-    printf("Size : %d\n", size);
-    printf("Iterations : %d\n", iterations);
-    printf("Start : %d\n", starting_position);
-    printf("Rule : %s\n\n", rule);
-
     returned_automaton->states_number = states_number;
     returned_automaton->size = size;
     returned_automaton->iterations = iterations;
@@ -39,13 +32,6 @@ automaton* init(unsigned char states_number,
         returned_automaton->states[i] = (unsigned char*)calloc(returned_automaton->size, sizeof(unsigned char));
     }
     returned_automaton->states[0][starting_position] = 1;
-
-    printf("POST-BUILD\n");
-    printf("States : %d\n", returned_automaton->states_number);
-    printf("Size : %d\n", returned_automaton->size);
-    printf("Iterations : %d\n", returned_automaton->iterations);
-    printf("Rule : %s\n", returned_automaton->rule);
-    printf("\n");
 
     return returned_automaton;
 }
