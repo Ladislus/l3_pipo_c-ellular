@@ -79,40 +79,17 @@ void update_state(automaton* a, size_t iteration) {
       neighbours = NULL;
       */
       unsigned char new_char = a->rule[somme(a, iteration, i)] - '0';
-      printf("new_char : %c\n", new_char - '0');
       a->states[iteration][i] = new_char;
     }
 }
 
 unsigned char somme(automaton* a, size_t iteration, size_t index) {
+
   unsigned char returned_value = 0;
 
-  // returned_value += (!index ? a->states[iteration - 1][a->size - 1] - '0' : a->states[iteration - 1][index - 1] - '0');
-  // returned_value += (a->states[iteration - 1][index] - '0');
-  // returned_value += (index == (unsigned char)(a->size - 1) ? a->states[iteration - 1][0] - '0' : a->states[iteration - 1][index + 1] - '0');
-
-    printf("returned_value : %d\n", returned_value);
-    unsigned char tmp_value = (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
-    printf("tmp_value 1 (char) : %c\n", tmp_value);
-    printf("tmp_value 1 : %d\n", tmp_value);
-    returned_value += tmp_value;
-    printf("returned_value (After) : %d\n-----------------\n", returned_value);
-
-    printf("returned_value : %d\n", returned_value);
-    tmp_value = (a->states[iteration - 1][index]);
-    printf("tmp_value 2 (char) : %c\n", tmp_value);
-    printf("tmp_value 2 : %d\n", tmp_value);
-    returned_value += tmp_value;
-    printf("returned_value (After) : %d\n-----------------\n", returned_value);
-
-    printf("returned_value : %d\n", returned_value);
-    tmp_value = (index == (unsigned char)(a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
-    printf("tmp_value 3 (char) : %c\n", tmp_value);
-    printf("tmp_value 3 : %d\n", tmp_value);
-    returned_value += tmp_value;
-    printf("returned_value (After) : %d\n-----------------\n", returned_value);
-
-  printf("somme : %d\n\n", returned_value);
+  returned_value += (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
+  returned_value += (a->states[iteration - 1][index]);
+  returned_value += (index == (unsigned char)(a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
 
   return returned_value;
 }
