@@ -1,5 +1,5 @@
 States=4;
-Size=10;
-Iteration=5;
+Size=25;
+Iteration=50;
 Start=9;
 Rule=0100000000;
