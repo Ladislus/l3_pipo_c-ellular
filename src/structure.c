@@ -1,8 +1,8 @@
 #include "structure.h"
 
 automaton* init(unsigned char states_number,
-                unsigned char size,
-                unsigned char iterations,
+                unsigned int size,
+                unsigned int iterations,
                 char* start,
                 char* rule,
                 void (*_printer)(void*)) {
@@ -49,16 +49,17 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
 
     if(file == NULL) exit(EXIT_FAILURE);
 
-    int states_number, size, iteration, starting_position;
+    unsigned char states_number;
+    unsigned int size, iteration;
     char rule[64], start[BUFFER_SIZE];
 
-    fscanf(file, "States=%d", &states_number);
+    fscanf(file, "States=%hhu", &states_number);
     fseek(file, +1, SEEK_CUR);
 
-    fscanf(file, "Size=%d", &size);
+    fscanf(file, "Size=%u", &size);
     fseek(file, +1, SEEK_CUR);
 
-    fscanf(file, "Iteration=%d", &iteration);
+    fscanf(file, "Iteration=%u", &iteration);
     fseek(file, +1, SEEK_CUR);
 
     fscanf(file, "Start=%s", start);

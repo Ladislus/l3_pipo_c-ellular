@@ -3,6 +3,7 @@
 void default_print(void* a) {
   const automaton* converted_automaton = (automaton*)a;
   printf("\n\t===========\n\t= RESULTS =\n\t===========\n\n");
+  printf("Number of states : %hd\n", converted_automaton->states_number);
   printf("rule : %s\n", converted_automaton->rule);
   printf("Size of the automaton : %d\n", converted_automaton->size);
   printf("Number of iterations : %d\n", converted_automaton->iterations);

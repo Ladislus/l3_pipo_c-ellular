@@ -37,7 +37,8 @@ automaton* menu() {
         return init_file(file_path, _printer);
     }
     else {
-        unsigned char states_number = 0, size = 0, iteration = 0;
+        unsigned char states_number = 0;
+        unsigned int size = 0, iteration = 0;
 
         do {
             printf("Number of states (%d <= X <= %d : ", MIN_STATES, MAX_STATES);
@@ -45,13 +46,13 @@ automaton* menu() {
         } while(states_number < MIN_STATES || states_number > MAX_STATES);
 
         do {
-            printf("Size (%d <= X <= 255) : ", MIN_SIZE);
-            scanf(" %hhu", &size);
+            printf("Size (%d <= X <= 65535) : ", MIN_SIZE);
+            scanf(" %u", &size);
         } while(size < MIN_SIZE);
 
         do {
-           printf("Iteration (%d <= X <= 255) : ", MIN_ITERATION);
-           scanf(" %hhu", &iteration);
+           printf("Iteration (%d <= X <= 65535) : ", MIN_ITERATION);
+           scanf(" %u", &iteration);
         } while(iteration < MIN_ITERATION);
 
         char start[BUFFER_SIZE], rule[BUFFER_SIZE];

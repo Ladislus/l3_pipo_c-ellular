@@ -15,8 +15,8 @@ struct pgm {
 
 typedef struct pgm pgm;
 
-pgm* init_pgm(const unsigned char width, const unsigned char height, const unsigned char max_value);
-pgm* create_pgm(const unsigned char width, const unsigned char height, const unsigned char max_value, unsigned char** image);
+pgm* init_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value);
+pgm* create_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value, unsigned char** image);
 
 bool write_pgm(const char* file_path, const pgm* p);
 

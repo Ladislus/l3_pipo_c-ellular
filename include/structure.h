@@ -7,8 +7,8 @@
 #include "assert.h"
 
 automaton* init(unsigned char states_number,
-                unsigned char size,
-                unsigned char iterations,
+                unsigned int size,
+                unsigned int iterations,
                 char* start,
                 char* rule,
                 void (*_printer)(void*));

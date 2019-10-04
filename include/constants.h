@@ -18,8 +18,8 @@
 
 struct automaton {
     unsigned char states_number;
-    unsigned char size;
-    unsigned char iterations;
+    unsigned int size;
+    unsigned int iterations;
     unsigned char** states; //The array of all the states of the automaton
     char* rule; //The rule
     void (*_printer)(void* automaton); //Printing function used

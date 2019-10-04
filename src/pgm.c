@@ -1,6 +1,6 @@
 #include "pgm.h"
 
-pgm* initialiser_image_pgm(const  unsigned char width, const unsigned char height, const unsigned char max_value) {
+pgm* initialiser_image_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value) {
 
     pgm* returned_pgm = (pgm*)malloc(sizeof(pgm));
 
@@ -18,7 +18,7 @@ pgm* initialiser_image_pgm(const  unsigned char width, const unsigned char heigh
     return returned_pgm;
 }
 
-pgm* create_pgm(const unsigned char width, const unsigned char height, const unsigned char max_value, unsigned char** image) {
+pgm* create_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value, unsigned char** image) {
     pgm* returned_pgm = initialiser_image_pgm(width, height, max_value);
 
     for(size_t i = 0; i < height; i ++) {
@@ -38,7 +38,7 @@ bool write_pgm(const char* file_path, const pgm* p) {
 
     fprintf(file, "P5\n");
     fprintf(file, "%u %u\n", p->width, p->height);
-    fprintf(file, "%u\n", p->max_value);
+    fprintf(file, "%u\n", (unsigned int)p->max_value);
 
     const unsigned char BYTES_SIZE = 1;
     const unsigned char BYTES_TO_WRITE = 1;
