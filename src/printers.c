@@ -1,8 +1,8 @@
 #include "printers.h"
 
 void default_print(void* a) {
-  automaton* converted_automaton = (automaton*)a;
-  // printf("\nRule : %d\n", converted_automaton->integer_rule); DEPRECATED
+  const automaton* converted_automaton = (automaton*)a;
+  printf("\n\t===========\n\t= RESULTS =\n\t===========\n\n");
   printf("rule : %s\n", converted_automaton->rule);
   printf("Size of the automaton : %d\n", converted_automaton->size);
   printf("Number of iterations : %d\n", converted_automaton->iterations);
@@ -12,4 +12,16 @@ void default_print(void* a) {
       printf("%c\n", SYMBOLS[converted_automaton->states[i][converted_automaton->size - 1]]);
   }
   printf("\n");
+}
+
+void default_saver(void* a) {
+  automaton* converted_automaton = (automaton*)a;
+  pgm* pgm = create_pgm(converted_automaton->size,
+                        converted_automaton->iterations,
+                        (converted_automaton->states_number - 1),
+                        converted_automaton->states);
+  write_pgm("./output.pgm", pgm);
+
+  destroy_pgm(&pgm);
+  pgm = NULL;
 }

@@ -9,7 +9,7 @@
 automaton* init(unsigned char states_number,
                 unsigned char size,
                 unsigned char iterations,
-                unsigned char starting_position,
+                char* start,
                 char* rule,
                 void (*_printer)(void*));
 automaton* init_file(char* file_path, void (* _printer)(void*));

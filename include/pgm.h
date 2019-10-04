@@ -6,8 +6,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define P_MAX 65536
-
 struct pgm {
      unsigned char width;
      unsigned char height;

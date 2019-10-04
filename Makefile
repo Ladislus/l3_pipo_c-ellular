@@ -10,7 +10,7 @@ DFLAGS := -ggdb
 COMPILEUR := $(CC) $(WFLAGS) $(SFLAGS) $(IFLAGS) $(DFLAGS)
 
 #Noms des fichiers
-FILES := obj/automaton.o obj/structure.o obj/converters.o obj/printers.o obj/constants.o obj/pgm.o
+FILES := obj/automaton.o obj/structure.o obj/converters.o obj/printers.o obj/constants.o obj/pgm.o obj/menu.o
 #Nom de l'éxécutable
 EXECUTABLE := exec
 
@@ -33,4 +33,4 @@ archive :
 	tar -cf archive.tar.gz src/ include/ Makefile
 
 clean :
-	rm -rf obj exec
+	rm -rf obj exec output.pgm

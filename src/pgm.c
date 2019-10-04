@@ -1,6 +1,6 @@
 #include "pgm.h"
 
-pgm* initialiser_image_pgm(const  unsigned char _width, const unsigned char _height, const unsigned char _max_value) {
+pgm* initialiser_image_pgm(const  unsigned char width, const unsigned char height, const unsigned char max_value) {
 
     pgm* returned_pgm = (pgm*)malloc(sizeof(pgm));
 
@@ -12,15 +12,19 @@ pgm* initialiser_image_pgm(const  unsigned char _width, const unsigned char _hei
     if(returned_pgm->image == NULL) fprintf(stderr, "Couldn't allocate space for the image (HEIGHT_ERROR)");
 
     for(size_t i = 0; i < height; i++) {
-        returned_pgm->image[i] = (unsigned char*)calloc(sizeof(unsigned char) * height);
-        if(returned_pgm->image[i] == NULL) fprintf(stderr, "Couldn't allocate space for image (WIDTH_ERROR, INDEX:%d)", i);
+        returned_pgm->image[i] = (unsigned char*)calloc(height, sizeof(unsigned char));
+        if(returned_pgm->image[i] == NULL) fprintf(stderr, "Couldn't allocate space for image (WIDTH_ERROR, INDEX:%ld)", i);
     }
     return returned_pgm;
 }
 
-pgm create_pgm(const unsigned char width, const unsigned char height, const unsigned char max_value, unsigned char** image) {
-    pgm* returned_pgm = initialiser_image_pgm(_largeur, _hauteur, valeur_max);
-    returned_pgm->image = image;
+pgm* create_pgm(const unsigned char width, const unsigned char height, const unsigned char max_value, unsigned char** image) {
+    pgm* returned_pgm = initialiser_image_pgm(width, height, max_value);
+
+    for(size_t i = 0; i < height; i ++) {
+        strcpy((char*)returned_pgm->image[i], (char*)image[i]);
+    }    
+    
     return returned_pgm;
 }
 
@@ -36,11 +40,12 @@ bool write_pgm(const char* file_path, const pgm* p) {
     fprintf(file, "%u %u\n", p->width, p->height);
     fprintf(file, "%u\n", p->max_value);
 
-    const unsigned char BYTES_TO_WRITE = p->max_value < 256 ? 1 : 2;
+    const unsigned char BYTES_SIZE = 1;
+    const unsigned char BYTES_TO_WRITE = 1;
 
     for(size_t i = 0; i < p->height; i++) {
         for(size_t j = 0; j < p->width; j++) {
-            fwrite(&p->image[i][j], BYTES_TO_WRITE, 1, file);
+            fwrite(&p->image[i][j], BYTES_SIZE, BYTES_TO_WRITE, file);
         }
     }
     fclose(file);

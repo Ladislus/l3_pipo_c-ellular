@@ -6,6 +6,13 @@
 #define DEFAULT_RULE 110 //Default rule used if no rule is passed as argument (DEPRECATED)
 #define DEFAULT_STATES_NUMBER 2 //Default number of states used in the automaton
 
+#define MIN_STATES 2
+#define MAX_STATES 10
+#define MIN_SIZE 5
+#define MIN_ITERATION 2
+
+#define BUFFER_SIZE 512
+
 #include <stdio.h>
 #include <stdlib.h>
 
