@@ -30,7 +30,7 @@ pgm* create_pgm(const unsigned char width, const unsigned char height, const uns
 
 bool write_pgm(const char* file_path, const pgm* p) {
 
-    FILE* file = fopen(file_path, "w");
+    FILE* file = fopen(file_path, "wb");
     if(file == NULL) {
         fprintf(stderr, "Couldn't open image in write mode (OPENNING_ERROR)");
         return false;
