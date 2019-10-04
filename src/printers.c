@@ -21,6 +21,16 @@ void default_saver(void* a) {
                         converted_automaton->iterations,
                         (converted_automaton->states_number - 1),
                         converted_automaton->states);
+
+  for(size_t i = 0; i < pgm->height; i++) {
+    i < 10 ? printf("|%ld | ", i) : printf("|%ld| ", i);
+    for(size_t j = 0; j < (unsigned)(pgm->width - 1); j++) printf("%c", SYMBOLS[pgm->image[i][j]]);
+      printf("%c\n", SYMBOLS[pgm->image[i][pgm->width - 1]]);
+  }
+  printf("\n");
+
+
+
   write_pgm("./output.pgm", pgm);
 
   destroy_pgm(&pgm);

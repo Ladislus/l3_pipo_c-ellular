@@ -1,7 +1,6 @@
 #include "pgm.h"
 
-pgm* initialiser_image_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value) {
-
+pgm* init_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value) {
     pgm* returned_pgm = (pgm*)malloc(sizeof(pgm));
 
     returned_pgm->width = width;
@@ -12,18 +11,18 @@ pgm* initialiser_image_pgm(const unsigned int width, const unsigned int height, 
     if(returned_pgm->image == NULL) fprintf(stderr, "Couldn't allocate space for the image (HEIGHT_ERROR)");
 
     for(size_t i = 0; i < height; i++) {
-        returned_pgm->image[i] = (unsigned char*)calloc(height, sizeof(unsigned char));
+        returned_pgm->image[i] = (unsigned char*)calloc(width, sizeof(unsigned char));
         if(returned_pgm->image[i] == NULL) fprintf(stderr, "Couldn't allocate space for image (WIDTH_ERROR, INDEX:%ld)", i);
     }
     return returned_pgm;
 }
 
-pgm* create_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value, unsigned char** image) {
-    pgm* returned_pgm = initialiser_image_pgm(width, height, max_value);
+pgm* create_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value, unsigned char** image) {    
+    pgm* returned_pgm = init_pgm(width, height, max_value);
 
-    for(size_t i = 0; i < height; i ++) {
-        strcpy((char*)returned_pgm->image[i], (char*)image[i]);
-    }    
+    for(size_t i = 0; i < height; i ++)
+        for(size_t j = 0; j < width; j++)
+            returned_pgm->image[i][j] = image[i][j];
     
     return returned_pgm;
 }
@@ -55,9 +54,14 @@ bool write_pgm(const char* file_path, const pgm* p) {
 }
 
 void destroy_pgm(pgm** p) {
-    for(size_t i = 0; i < (*p)->height; i++)
+    for(size_t i = 0; i < (*p)->height; i++) {
         free((*p)->image[i]);
+        (*p)->image[i] = NULL;
+    }
+    
     free((*p)->image);
+    (*p)->image = NULL;
+
     free(*p);
     *p = NULL;
 }
