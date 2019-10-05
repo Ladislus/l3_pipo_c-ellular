@@ -34,7 +34,16 @@ struct automaton {
     void (*_printer)(void* automaton);  //Printing function used for the automaton
 };
 
+struct pgm {
+     unsigned int width;                //The file width
+     unsigned int height;               //The file height
+     unsigned char max_value;           //The maximum value in the pixels
+     unsigned char** image;             //The array of pixels
+};
+
 typedef struct automaton automaton;     //Automaton alias
+typedef struct pgm pgm;                 //Pgm alias
+
 
 extern const unsigned char SYMBOLS[];   //Array of symbols used to represent the states
 
