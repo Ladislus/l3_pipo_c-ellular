@@ -1,6 +1,6 @@
 /**
  * @file constants.h
- * @author Ladislas WALCAK, Simon DRIEUX
+ * @author Ladislas WALCAK (ladislas.walcak@etu.univ-orleans.fr), Simon DRIEUX (simon.drieux@etu.univ-orleans.fr)
  * @brief Constants, structs and includes shared with every other files of the project
  * @version 0.1
  * @date 2019-10-05

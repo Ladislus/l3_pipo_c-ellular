@@ -1,6 +1,6 @@
 /**
  * @file structure.h
- * @author Ladislas WALCAk, Simon DRIEUX
+ * @author Ladislas WALCAK (ladislas.walcak@etu.univ-orleans.fr), Simon DRIEUX (simon.drieux@etu.univ-orleans.fr)
  * @brief HEADER - Functions used to manipulate automaton struct
  * @version 0.1
  * @date 2019-10-05

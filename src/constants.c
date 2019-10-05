@@ -1,6 +1,6 @@
 /**
  * @file constants.c
- * @author Ladislas WALCAK, Simon DRIEUX
+ * @author Ladislas WALCAK (ladislas.walcak@etu.univ-orleans.fr), Simon DRIEUX (simon.drieux@etu.univ-orleans.fr)
  * @brief Initialisation of constant arrays
  * @version 0.1
  * @date 2019-10-05
