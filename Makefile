@@ -30,7 +30,7 @@ prepare :
 	test -d obj || mkdir obj
 
 archive :
-	tar -zcvf WALCAK_DRIEUX.tar.gz src/ include/ Makefile README.md config.txt
+	tar -zcvf WALCAK_DRIEUX.tar.gz src/ include/ Makefile config.txt
 
 doc :
 	test -d doc || mkdir doc
