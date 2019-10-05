@@ -1,9 +1,18 @@
 
 # C-ellular-project
 School project to create a cellular automaton. Written in C.
+
 ## Informations
 **Group** : Ladislas WALCAK, Simon DRIEUX.   
 **Git repository** : [github.com](https://github.com/SimonDr18/C-ellular-project)
+
+## Requirements
+For this program to work, you need to install :
+ - GCC compiler
+ - Valgrind
+ - Makefile
+ - Doxygen (Optionnal)
+
 ## Run the project
 Here are the steps to run the project (in the terminal)
  1. To run the project, first compile it :
