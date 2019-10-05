@@ -22,6 +22,7 @@
 #include <stdio.h>                      //I/O functions
 #include <stdlib.h>                     //Standard functions
 #include <stdbool.h>                    //Booleans
+#include <assert.h>                     //Asserts
 
 struct automaton {
     unsigned char states_number;        //Number of states of the automaton
