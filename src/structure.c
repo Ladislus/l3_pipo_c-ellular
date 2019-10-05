@@ -93,14 +93,6 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
     //Declare variables to store the data read from the file
     unsigned char states_number;        //The number of states
     unsigned int size, iteration;       //The size (width) and number of iterations (height)
-    
-    /*
-    Declaration of 2 buffers to contain the eule and first iteration
-    TODO: Use malloc'd arrays instead static arrays
-    - Rule maximum size is 11 (10 characters for the rule + '\0')
-    - Start can be longer than BUFFER_SIZE
-    */
-    char rule[64], start[BUFFER_SIZE];
 
     //Read number of states
     fscanf(file, "States=%hhu", &states_number);
@@ -114,9 +106,30 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
     fscanf(file, "Iteration=%u", &iteration);
     fseek(file, +1, SEEK_CUR);
 
+    /*
+    Declaration of a buffer for the first iteration
+    The buffer is twice the needed size to prevent side effect
+    If the given value for Start dosen't have the right size,
+    an assert will stop the program at the beginning of init()
+
+    TODO : Improve read method to prevent side effect
+    */
+    char* start = (char*)malloc(sizeof(char) * (2 * size));
+
     //Read first iteration
     fscanf(file, "Start=%s", start);
     fseek(file, +1, SEEK_CUR);
+
+    /*
+    Declaration of a buffer for the rule
+    Rule maximum size is 11 (10 characters + '\0')
+    The buffer is bigger to prevent side effect
+    If the given value for rule dosen't have the right size,
+    an assert will stop the program at the beginning of init()
+
+    TODO : Improve read method to prevent side effect
+    */
+    char rule[BUFFER_SIZE];
 
     //Read the rule
     fscanf(file, "Rule=%s", rule);
@@ -125,13 +138,19 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
     fclose(file);
     file = NULL;
 
+    //Store the created automaton (Start must be freed before returning the automaton)
+    automaton* returned_automaton = init(states_number,
+                                    size,
+                                    iteration,
+                                    start,
+                                    rule,
+                                    _printer);
+
+    free(start);
+    start = NULL;                               
+
     //Return the created automaton
-    return init(states_number,
-                size,
-                iteration,
-                start,
-                rule,
-                _printer);
+    return returned_automaton;
 }
 
 /**
