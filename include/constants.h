@@ -21,6 +21,7 @@
 
 #include <stdio.h>                      //I/O functions
 #include <stdlib.h>                     //Standard functions
+#include <stdbool.h>                    //Booleans
 
 struct automaton {
     unsigned char states_number;        //Number of states of the automaton
