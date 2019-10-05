@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['init_48',['init',['../df/d20/structure_8c.html#a7b984fcf06900c35c9d6806776af7878',1,'init(unsigned char states_number, unsigned int size, unsigned int iterations, char *start, char *rule, void(*_printer)(void *)):&#160;structure.c'],['../de/d66/structure_8h.html#a7b984fcf06900c35c9d6806776af7878',1,'init(unsigned char states_number, unsigned int size, unsigned int iterations, char *start, char *rule, void(*_printer)(void *)):&#160;structure.c']]],
+  ['init_5ffile_49',['init_file',['../df/d20/structure_8c.html#a9d69d51662a9bdaa6b34117f8460ede1',1,'init_file(char *file_path, void(*_printer)(void *)):&#160;structure.c'],['../de/d66/structure_8h.html#a9d69d51662a9bdaa6b34117f8460ede1',1,'init_file(char *file_path, void(*_printer)(void *)):&#160;structure.c']]],
+  ['init_5fpgm_50',['init_pgm',['../d4/d61/pgm_8c.html#a693d13801bcc4cfca634f661fd96ec9f',1,'init_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value):&#160;pgm.c'],['../da/d0a/pgm_8h.html#a693d13801bcc4cfca634f661fd96ec9f',1,'init_pgm(const unsigned int width, const unsigned int height, const unsigned char max_value):&#160;pgm.c']]],
+  ['is_5fvalid_5fanswer_51',['is_valid_answer',['../d2/d0a/menu_8c.html#a22df02c52e29d541951e4a973eead1bf',1,'is_valid_answer(unsigned char answer):&#160;menu.c'],['../d3/d54/menu_8h.html#a22df02c52e29d541951e4a973eead1bf',1,'is_valid_answer(unsigned char answer):&#160;menu.c']]],
+  ['is_5fyes_52',['is_yes',['../d2/d0a/menu_8c.html#a1e2cf75ac560220b5946454e75ccf265',1,'is_yes(unsigned char answer):&#160;menu.c'],['../d3/d54/menu_8h.html#a1e2cf75ac560220b5946454e75ccf265',1,'is_yes(unsigned char answer):&#160;menu.c']]]
+];

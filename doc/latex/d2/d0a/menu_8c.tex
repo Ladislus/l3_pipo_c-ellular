@@ -1,0 +1,90 @@
+\hypertarget{menu_8c}{}\doxysection{src/menu.c File Reference}
+\label{menu_8c}\index{src/menu.c@{src/menu.c}}
+
+
+Functions used to print the menu.  
+
+
+{\ttfamily \#include \char`\"{}menu.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{menu_8c_a22df02c52e29d541951e4a973eead1bf}{is\+\_\+valid\+\_\+answer}} (unsigned char answer)
+\begin{DoxyCompactList}\small\item\em Function to check if the character is a valid answer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{menu_8c_a1e2cf75ac560220b5946454e75ccf265}{is\+\_\+yes}} (unsigned char answer)
+\begin{DoxyCompactList}\small\item\em Function to check if the answer is yes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structautomaton}{automaton}} $\ast$ \mbox{\hyperlink{menu_8c_a25347ae30e368740cce049151e0167ea}{menu}} ()
+\begin{DoxyCompactList}\small\item\em Function to launch the menu, and create the corresponding automaton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions used to print the menu. 
+
+\begin{DoxyAuthor}{Author}
+Ladislas W\+A\+L\+C\+AK (\href{mailto:ladislas.walcak@etu.univ-orleans.fr}{\texttt{ ladislas.\+walcak@etu.\+univ-\/orleans.\+fr}}), Simon D\+R\+I\+E\+UX (\href{mailto:simon.drieux@etu.univ-orleans.fr}{\texttt{ simon.\+drieux@etu.\+univ-\/orleans.\+fr}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/10-\/05
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{menu_8c_a22df02c52e29d541951e4a973eead1bf}\label{menu_8c_a22df02c52e29d541951e4a973eead1bf}} 
+\index{menu.c@{menu.c}!is\_valid\_answer@{is\_valid\_answer}}
+\index{is\_valid\_answer@{is\_valid\_answer}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_answer()}{is\_valid\_answer()}}
+{\footnotesize\ttfamily bool is\+\_\+valid\+\_\+answer (\begin{DoxyParamCaption}\item[{unsigned char}]{answer }\end{DoxyParamCaption})}
+
+
+
+Function to check if the character is a valid answer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em answer} & unsigned char \+: The user\textquotesingle{}s answer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the answer is a valid character 
+
+false if the answer is not a valid character 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_a1e2cf75ac560220b5946454e75ccf265}\label{menu_8c_a1e2cf75ac560220b5946454e75ccf265}} 
+\index{menu.c@{menu.c}!is\_yes@{is\_yes}}
+\index{is\_yes@{is\_yes}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{is\_yes()}{is\_yes()}}
+{\footnotesize\ttfamily bool is\+\_\+yes (\begin{DoxyParamCaption}\item[{unsigned char}]{answer }\end{DoxyParamCaption})}
+
+
+
+Function to check if the answer is yes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em answer} & unsigned char \+: The user\textquotesingle{}s answer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if answer is yes 
+
+false if answer is false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_a25347ae30e368740cce049151e0167ea}\label{menu_8c_a25347ae30e368740cce049151e0167ea}} 
+\index{menu.c@{menu.c}!menu@{menu}}
+\index{menu@{menu}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{menu()}{menu()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structautomaton}{automaton}}$\ast$ menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to launch the menu, and create the corresponding automaton. 
+
+\begin{DoxyReturn}{Returns}
+automaton$\ast$ The automaton created according to user\textquotesingle{}s answers 
+\end{DoxyReturn}

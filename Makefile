@@ -32,5 +32,10 @@ prepare :
 archive :
 	tar -cf archive.tar.gz src/ include/ Makefile
 
+doc :
+	rm -rf doc
+	mkdir doc
+	doxygen Doxyfile
+
 clean :
 	rm -rf obj exec output.pgm

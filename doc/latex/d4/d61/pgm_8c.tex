@@ -1,0 +1,122 @@
+\hypertarget{pgm_8c}{}\doxysection{src/pgm.c File Reference}
+\label{pgm_8c}\index{src/pgm.c@{src/pgm.c}}
+
+
+Functions used to manipulate the pgm struct.  
+
+
+{\ttfamily \#include \char`\"{}pgm.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structpgm}{pgm}} $\ast$ \mbox{\hyperlink{pgm_8c_a693d13801bcc4cfca634f661fd96ec9f}{init\+\_\+pgm}} (const unsigned int width, const unsigned int height, const unsigned char max\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Function to initialise the pgm file header. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structpgm}{pgm}} $\ast$ \mbox{\hyperlink{pgm_8c_a45cdcda20770db659cdecdb964306658}{create\+\_\+pgm}} (const unsigned int width, const unsigned int height, const unsigned char max\+\_\+value, unsigned char $\ast$$\ast$image)
+\begin{DoxyCompactList}\small\item\em Function to create a pgm. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{pgm_8c_a037068ea6fe720eb17f91d44ab11d5cd}{write\+\_\+pgm}} (const char $\ast$file\+\_\+path, const \mbox{\hyperlink{structpgm}{pgm}} $\ast$p)
+\begin{DoxyCompactList}\small\item\em Function to write the pgm into a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pgm_8c_a20c58968d070eb3d31f63430b4cf9c28}{destroy\+\_\+pgm}} (\mbox{\hyperlink{structpgm}{pgm}} $\ast$$\ast$p)
+\begin{DoxyCompactList}\small\item\em Function to destroy the pgm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions used to manipulate the pgm struct. 
+
+\begin{DoxyAuthor}{Author}
+Ladislas W\+A\+L\+C\+AK (\href{mailto:ladislas.walcak@etu.univ-orleans.fr}{\texttt{ ladislas.\+walcak@etu.\+univ-\/orleans.\+fr}}), Simon D\+R\+I\+E\+UX (\href{mailto:simon.drieux@etu.univ-orleans.fr}{\texttt{ simon.\+drieux@etu.\+univ-\/orleans.\+fr}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/10-\/05
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pgm_8c_a45cdcda20770db659cdecdb964306658}\label{pgm_8c_a45cdcda20770db659cdecdb964306658}} 
+\index{pgm.c@{pgm.c}!create\_pgm@{create\_pgm}}
+\index{create\_pgm@{create\_pgm}!pgm.c@{pgm.c}}
+\doxysubsubsection{\texorpdfstring{create\_pgm()}{create\_pgm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structpgm}{pgm}}$\ast$ create\+\_\+pgm (\begin{DoxyParamCaption}\item[{const unsigned int}]{width,  }\item[{const unsigned int}]{height,  }\item[{const unsigned char}]{max\+\_\+value,  }\item[{unsigned char $\ast$$\ast$}]{image }\end{DoxyParamCaption})}
+
+
+
+Function to create a pgm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & const unsigned int \+: The width of the file \\
+\hline
+{\em height} & const unisgned int \+: The height of the file \\
+\hline
+{\em max\+\_\+value} & const unsigned char \+: The maximum value in the pixels \\
+\hline
+{\em image} & unsigned char$\ast$$\ast$ \+: The array of pixels \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pgm$\ast$ The pointer of the created pgm 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pgm_8c_a20c58968d070eb3d31f63430b4cf9c28}\label{pgm_8c_a20c58968d070eb3d31f63430b4cf9c28}} 
+\index{pgm.c@{pgm.c}!destroy\_pgm@{destroy\_pgm}}
+\index{destroy\_pgm@{destroy\_pgm}!pgm.c@{pgm.c}}
+\doxysubsubsection{\texorpdfstring{destroy\_pgm()}{destroy\_pgm()}}
+{\footnotesize\ttfamily void destroy\+\_\+pgm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpgm}{pgm}} $\ast$$\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Function to destroy the pgm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & pgm$\ast$$\ast$ \+: The pointer of the pgm to destroy \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{pgm_8c_a693d13801bcc4cfca634f661fd96ec9f}\label{pgm_8c_a693d13801bcc4cfca634f661fd96ec9f}} 
+\index{pgm.c@{pgm.c}!init\_pgm@{init\_pgm}}
+\index{init\_pgm@{init\_pgm}!pgm.c@{pgm.c}}
+\doxysubsubsection{\texorpdfstring{init\_pgm()}{init\_pgm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structpgm}{pgm}}$\ast$ init\+\_\+pgm (\begin{DoxyParamCaption}\item[{const unsigned int}]{width,  }\item[{const unsigned int}]{height,  }\item[{const unsigned char}]{max\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Function to initialise the pgm file header. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & const unsigned int \+: The width of the file \\
+\hline
+{\em height} & const unsigned int \+: The height of the file \\
+\hline
+{\em max\+\_\+value} & const unsigned char \+: The maximum value in the pixels \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pgm$\ast$ The pointer of the created pgm 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pgm_8c_a037068ea6fe720eb17f91d44ab11d5cd}\label{pgm_8c_a037068ea6fe720eb17f91d44ab11d5cd}} 
+\index{pgm.c@{pgm.c}!write\_pgm@{write\_pgm}}
+\index{write\_pgm@{write\_pgm}!pgm.c@{pgm.c}}
+\doxysubsubsection{\texorpdfstring{write\_pgm()}{write\_pgm()}}
+{\footnotesize\ttfamily bool write\+\_\+pgm (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+\_\+path,  }\item[{const \mbox{\hyperlink{structpgm}{pgm}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Function to write the pgm into a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+path} & const char$\ast$ \+: The absolute path of file \\
+\hline
+{\em p} & const pgm$\ast$ \+: The pgm to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the file was written 
+
+false if an error occured and the file wasn\textquotesingle{}t written 
+\end{DoxyReturn}

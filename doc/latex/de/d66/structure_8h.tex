@@ -1,0 +1,177 @@
+\hypertarget{structure_8h}{}\doxysection{include/structure.h File Reference}
+\label{structure_8h}\index{include/structure.h@{include/structure.h}}
+
+
+H\+E\+A\+D\+ER -\/ Functions used to manipulate automaton struct.  
+
+
+{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structautomaton}{automaton}} $\ast$ \mbox{\hyperlink{structure_8h_a7b984fcf06900c35c9d6806776af7878}{init}} (unsigned char states\+\_\+number, unsigned int size, unsigned int iterations, char $\ast$\mbox{\hyperlink{structure_8h_acf6fd3e6d1eca3dae60c6f62b17b886a}{start}}, char $\ast$rule, void($\ast$\+\_\+printer)(void $\ast$))
+\begin{DoxyCompactList}\small\item\em Function to create an automaton. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structautomaton}{automaton}} $\ast$ \mbox{\hyperlink{structure_8h_a9d69d51662a9bdaa6b34117f8460ede1}{init\+\_\+file}} (char $\ast$file\+\_\+path, void($\ast$\+\_\+printer)(void $\ast$))
+\begin{DoxyCompactList}\small\item\em Function to create an automaton using a config file (.txt) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structure_8h_afe10a956ec9c8abeb306eb99e3076dc3}{destroy}} (\mbox{\hyperlink{structautomaton}{automaton}} $\ast$$\ast$a)
+\begin{DoxyCompactList}\small\item\em Function to destroy the automaton struct. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structure_8h_acf6fd3e6d1eca3dae60c6f62b17b886a}{start}} (\mbox{\hyperlink{structautomaton}{automaton}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em The function to start the automaton and compute all the iterations of the automaton. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structure_8h_a52168e598b42911b0ff2605c1d5bdaf4}{update\+\_\+state}} (\mbox{\hyperlink{structautomaton}{automaton}} $\ast$a, size\+\_\+t iteration)
+\begin{DoxyCompactList}\small\item\em Function to compute the current iteration. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structure_8h_a765d39f6d736d630729c1098f384f573}{somme}} (\mbox{\hyperlink{structautomaton}{automaton}} $\ast$a, size\+\_\+t iteration, size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Function to get the index of the new value of the current state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structure_8h_a8246fe17bdc986cb4cb1256419fddf30}{print}} (\mbox{\hyperlink{structautomaton}{automaton}} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Function to print the automaton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+H\+E\+A\+D\+ER -\/ Functions used to manipulate automaton struct. 
+
+\begin{DoxyAuthor}{Author}
+Ladislas W\+A\+L\+C\+AK (\href{mailto:ladislas.walcak@etu.univ-orleans.fr}{\texttt{ ladislas.\+walcak@etu.\+univ-\/orleans.\+fr}}), Simon D\+R\+I\+E\+UX (\href{mailto:simon.drieux@etu.univ-orleans.fr}{\texttt{ simon.\+drieux@etu.\+univ-\/orleans.\+fr}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/10-\/05
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{structure_8h_afe10a956ec9c8abeb306eb99e3076dc3}\label{structure_8h_afe10a956ec9c8abeb306eb99e3076dc3}} 
+\index{structure.h@{structure.h}!destroy@{destroy}}
+\index{destroy@{destroy}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{destroy()}{destroy()}}
+{\footnotesize\ttfamily void destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structautomaton}{automaton}} $\ast$$\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+Function to destroy the automaton struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & automaton$\ast$$\ast$ \+: The pointer to the automaton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structure_8h_a7b984fcf06900c35c9d6806776af7878}\label{structure_8h_a7b984fcf06900c35c9d6806776af7878}} 
+\index{structure.h@{structure.h}!init@{init}}
+\index{init@{init}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structautomaton}{automaton}}$\ast$ init (\begin{DoxyParamCaption}\item[{unsigned char}]{states\+\_\+number,  }\item[{unsigned int}]{size,  }\item[{unsigned int}]{iterations,  }\item[{char $\ast$}]{start,  }\item[{char $\ast$}]{rule,  }\item[{void($\ast$)(void $\ast$)}]{\+\_\+printer }\end{DoxyParamCaption})}
+
+
+
+Function to create an automaton. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em states\+\_\+number} & unsigned char \+: The number of states of the automaton \\
+\hline
+{\em size} & unsigned int \+: The size (width) of the automaton \\
+\hline
+{\em iterations} & unsigned int \+: The number of iterations (height) of the automaton \\
+\hline
+{\em start} & char$\ast$ \+: The first iteration of the automaton \\
+\hline
+{\em rule} & char$\ast$ \+: The rule to get the next iteration of the automaton \\
+\hline
+{\em \+\_\+printer} & void$\ast$\+: The pointer of the printing function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+automaton$\ast$ The pointer of the created automaton 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structure_8h_a9d69d51662a9bdaa6b34117f8460ede1}\label{structure_8h_a9d69d51662a9bdaa6b34117f8460ede1}} 
+\index{structure.h@{structure.h}!init\_file@{init\_file}}
+\index{init\_file@{init\_file}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{init\_file()}{init\_file()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structautomaton}{automaton}}$\ast$ init\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{file\+\_\+path,  }\item[{void($\ast$)(void $\ast$)}]{\+\_\+printer }\end{DoxyParamCaption})}
+
+
+
+Function to create an automaton using a config file (.txt) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+path} & char$\ast$ \+: The filepath to the config file \\
+\hline
+{\em \+\_\+printer} & void$\ast$ \+: The pointer of the print function used \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+automaton$\ast$ The pointer of the created automaton 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structure_8h_a8246fe17bdc986cb4cb1256419fddf30}\label{structure_8h_a8246fe17bdc986cb4cb1256419fddf30}} 
+\index{structure.h@{structure.h}!print@{print}}
+\index{print@{print}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structautomaton}{automaton}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+Function to print the automaton. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & automaton$\ast$ \+: The pointer of the automaton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structure_8h_a765d39f6d736d630729c1098f384f573}\label{structure_8h_a765d39f6d736d630729c1098f384f573}} 
+\index{structure.h@{structure.h}!somme@{somme}}
+\index{somme@{somme}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{somme()}{somme()}}
+{\footnotesize\ttfamily unsigned char somme (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structautomaton}{automaton}} $\ast$}]{a,  }\item[{size\+\_\+t}]{iteration,  }\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Function to get the index of the new value of the current state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & automaton$\ast$ \+: The pointer of the automaton \\
+\hline
+{\em iteration} & size\+\_\+t \+: The index of the iteration \\
+\hline
+{\em index} & size\+\_\+t \+: The index of the current state \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned char The new value of the current state 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structure_8h_acf6fd3e6d1eca3dae60c6f62b17b886a}\label{structure_8h_acf6fd3e6d1eca3dae60c6f62b17b886a}} 
+\index{structure.h@{structure.h}!start@{start}}
+\index{start@{start}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily void start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structautomaton}{automaton}} $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+The function to start the automaton and compute all the iterations of the automaton. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & automaton$\ast$ \+: The pointer of the automaton \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structure_8h_a52168e598b42911b0ff2605c1d5bdaf4}\label{structure_8h_a52168e598b42911b0ff2605c1d5bdaf4}} 
+\index{structure.h@{structure.h}!update\_state@{update\_state}}
+\index{update\_state@{update\_state}!structure.h@{structure.h}}
+\doxysubsubsection{\texorpdfstring{update\_state()}{update\_state()}}
+{\footnotesize\ttfamily void update\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structautomaton}{automaton}} $\ast$}]{a,  }\item[{size\+\_\+t}]{iteration }\end{DoxyParamCaption})}
+
+
+
+Function to compute the current iteration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & automaton$\ast$ \+: The pointer of the automaton \\
+\hline
+{\em iteration} & size\+\_\+t \+: The index of the iteration to compute \\
+\hline
+\end{DoxyParams}
