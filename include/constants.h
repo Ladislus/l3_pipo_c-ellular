@@ -21,6 +21,7 @@
 
 #include <stdio.h>                      //I/O functions
 #include <stdlib.h>                     //Standard functions
+#include <string.h>                     //Strings functions
 #include <stdbool.h>                    //Booleans
 #include <assert.h>                     //Asserts
 
