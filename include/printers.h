@@ -13,6 +13,7 @@
 #define PRINTERS_H
 
 #include "constants.h"  //Require the automaton struct
+#include "pgm.h"        //Require pgm manipulation functions
 
 /**
  * @brief Default function to print the automaton in the terminal
