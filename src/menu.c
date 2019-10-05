@@ -99,19 +99,31 @@ automaton* menu() {
         } while(iteration < MIN_ITERATION);
 
         /*
-        Declaration of 2 buffers to contain the user's answers (Rule and Start)
-        TODO: Use malloc'd arrays instead static arrays
-        - Rule maximum size is 11 (10 characters for the rule + '\0')
-        - Start can be longer than BUFFER_SIZE
+        Declaration of a buffer for the first iteration
+        The buffer is twice the needed size to prevent side effect
+        If the given value for Start dosen't have the right size,
+        an assert will stop the program at the beginning of init()
+
+        TODO : Improve read method to prevent side effect or errors
         */
-        char start[BUFFER_SIZE], rule[BUFFER_SIZE];
+        char* start = (char*)malloc(sizeof(char) * (2 * size));
 
         //Ask automaton's starting state (start's size depends on the automaton's)
         do {
             printf("Start (required length %d characters) : ", size);
             scanf(" %s", start);
         } while(strlen(start) != size);
-        start[strlen(start)] = '\0';
+
+        /*
+        Declaration of a buffer for the rule
+        Rule maximum size is 11 (10 characters + '\0')
+        The buffer is bigger to prevent side effect
+        If the given value for rule dosen't have the right size,
+        an assert will stop the program at the beginning of init()
+
+        TODO : Improve read method to prevent side effect or errors
+        */
+        char rule[BUFFER_SIZE];
 
         //Ask automaton's rule (The rule's size depends on the number of states)
         do {
@@ -120,7 +132,14 @@ automaton* menu() {
         } while (strlen(rule) != (size_t)(((states_number - 1) * 3) + 1));
         rule[strlen(rule)] = '\0';
 
-        //Return the pointer of the created automaton
-        return init(states_number, size, iteration, start, rule, _printer);
+        //Store the created automaton (Start must be freed before returning the automaton)
+        automaton* returned_automaton = init(states_number, size, iteration, start, rule, _printer);
+
+        //Free the string containing the first iteration
+        free(start);
+        start = NULL;
+
+        //Return the created automaton
+        return returned_automaton;
     }
 }
