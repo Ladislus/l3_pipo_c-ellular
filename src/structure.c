@@ -1,5 +1,27 @@
+/**
+ * @file structure.c
+ * @author Ladislas WALCAK, Simon DRIEUX
+ * @brief Functions used to manipulate automaton struct
+ * @version 0.1
+ * @date 2019-10-05
+ * 
+ * @copyright Copyright (c) 2019
+ * 
+ */
+
 #include "structure.h"
 
+/**
+ * @brief Function to create an automaton
+ * 
+ * @param states_number unsigned char : The number of states of the automaton
+ * @param size  unsigned int : The size (width) of the automaton
+ * @param iterations  unsigned int : The number of iterations (height) of the automaton
+ * @param start char* : The first iteration of the automaton
+ * @param rule char* : The rule to get the next iteration of the automaton
+ * @param _printer  void*: The pointer of the printing function
+ * @return automaton* The pointer of the created automaton
+ */
 automaton* init(unsigned char states_number,
                 unsigned int size,
                 unsigned int iterations,
@@ -16,60 +38,94 @@ automaton* init(unsigned char states_number,
     assert(strlen(start) == size);
     assert(strlen(rule) <= (size_t)(((states_number - 1) * 3) + 1));
 
-    //Check if rule contains valid numbers
+    //Check if rule contains only valid numbers
     for(size_t i = 0; i < strlen(rule); i++) assert(rule[i] >= '0' && rule[i] <= ((states_number - 1) + '0'));
 
+    //Allocate space for the created automaton
     automaton* returned_automaton = (automaton*)malloc(sizeof(automaton));
 
-    returned_automaton->states_number = states_number;
-    returned_automaton->size = size;
-    returned_automaton->iterations = iterations;
-    returned_automaton->_printer = _printer;
+    //Assign values to the automaton 
+    returned_automaton->states_number = states_number;  //The number of states
+    returned_automaton->size = size;                    //The size (width)
+    returned_automaton->iterations = iterations;        //The number of iteration (height)
+    returned_automaton->_printer = _printer;            //The function used to print the automaton
 
+    //Allocate space for the array constaining the rule
     returned_automaton->rule = (char*)malloc(sizeof(char) * (strlen(rule) + 1));
+    //Copying the rule into the automaton (strcpy prevent the loss of the rule on parameter destruction)
     strcpy(returned_automaton->rule, rule);
 
+    //Allocate space for the matrix of pixels
     returned_automaton->states = (unsigned char**)malloc(returned_automaton->iterations * sizeof(unsigned char*));
     
+    //Allocate space for the first line of the matrix given by the user
     returned_automaton->states[0] = (unsigned char*)malloc(sizeof(unsigned char) * returned_automaton->size);
     for(size_t i = 0; i < returned_automaton->size; i++) {
+        //Check if the current character of the first iteration is valid
         assert(start[i] >= '0' && start[i] < (states_number + '0'));
+        //Store the value in the pixels matrix
         returned_automaton->states[0][i] = (start[i] - '0');
     }
+
+    //Allocate space for the others iteration of the automaton
     for(size_t i = 1; i < returned_automaton->iterations; i++) {
         returned_automaton->states[i] = (unsigned char*)calloc(returned_automaton->size, sizeof(unsigned char));
     }
 
+    //Return the pointer of the created automaton
     return returned_automaton;
 }
 
+/**
+ * @brief Function to create an automaton using a config file (.txt)
+ * 
+ * @param file_path char* : The filepath to the config file
+ * @param _printer void* : The pointer of the print function used
+ * @return automaton* The pointer of the created automaton
+ */
 automaton* init_file(char* file_path, void (* _printer)(void*)) {
 
+    //Open the file from which config is read
     FILE* file = fopen(file_path, "r");
-
+    //If the file couldn't be opened, exit the function with errors
     if(file == NULL) exit(EXIT_FAILURE);
 
-    unsigned char states_number;
-    unsigned int size, iteration;
+    //Declare variables to store the data read from the file
+    unsigned char states_number;        //The number of states
+    unsigned int size, iteration;       //The size (width) and number of iterations (height)
+    
+    /*
+    Declaration of 2 buffers to contain the eule and first iteration
+    TODO: Use malloc'd arrays instead static arrays
+    - Rule maximum size is 11 (10 characters for the rule + '\0')
+    - Start can be longer than BUFFER_SIZE
+    */
     char rule[64], start[BUFFER_SIZE];
 
+    //Read number of states
     fscanf(file, "States=%hhu", &states_number);
     fseek(file, +1, SEEK_CUR);
 
+    //Read size (width)
     fscanf(file, "Size=%u", &size);
     fseek(file, +1, SEEK_CUR);
 
+    //Read number of iterations (height)
     fscanf(file, "Iteration=%u", &iteration);
     fseek(file, +1, SEEK_CUR);
 
+    //Read first iteration
     fscanf(file, "Start=%s", start);
     fseek(file, +1, SEEK_CUR);
 
+    //Read the rule
     fscanf(file, "Rule=%s", rule);
 
+    //Close the file
     fclose(file);
     file = NULL;
 
+    //Return the created automaton
     return init(states_number,
                 size,
                 iteration,
@@ -78,75 +134,91 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
                 _printer);
 }
 
+/**
+ * @brief Function to destroy the automaton struct
+ * 
+ * @param a automaton** : The pointer to the automaton
+ */
 void destroy(automaton** a) {
+
+    //Free each line of the pixels matrix
     for(size_t i = 0; i < (*a)->iterations; i++) {
         free((*a)->states[i]);
         (*a)->states[i] = NULL;
     }
+
+    //Free the pixels matrix
     free((*a)->states);
     (*a)->states = NULL;
 
+    //Free the array containing rule
     free((*a)->rule);
     (*a)->rule = NULL;
 
+    //Free the automaton struct
     free(*a);
+    (*a) = NULL;
 }
 
+/**
+ * @brief The function to start the automaton and compute all the iterations of the automaton
+ * 
+ * @param a automaton* : The pointer of the automaton
+ */
 void start(automaton* a) {
+
+    //Compute all the iterations of the automaton
     for(size_t i = 1; i < a->iterations; i++) {
         update_state(a, i);
     }
+
+    //Print the automaton
     print(a);
 }
 
-//DEPRECATED
-unsigned char apply_rule(automaton* a, unsigned char* neighbours) {
-    for(size_t i = 0; i < 8; i++) {
-        if(compare_state(i, neighbours)) return (a->rule[i] - '0');
-    }
-    fprintf(stderr, "No matching rule found, exiting ...\n");
-    exit(EXIT_FAILURE);
-}
-
-//DEPRECATED
-bool compare_state(size_t index, unsigned char* tested_state) {
-    return ((TABLE[index][0] - '0') == tested_state[0] && (TABLE[index][1] - '0') == tested_state[1] && (TABLE[index][2] - '0') == tested_state[2]);
-}
-
+/**
+ * @brief Function to compute the current iteration
+ * 
+ * @param a automaton* : The pointer of the automaton
+ * @param iteration size_t : The index of the iteration to compute
+ */
 void update_state(automaton* a, size_t iteration) {
-    for(size_t i = 0; i < a->size; i++) {
-      /* DEPRECATED
-      unsigned char* neighbours = get_neighbours(a, iteration, i);
-      a->states[iteration][i] = apply_rule(a, neighbours);
-      free(neighbours);
-      neighbours = NULL;
-      */
-      unsigned char new_char = a->rule[somme(a, iteration, i)] - '0';
-      a->states[iteration][i] = new_char;
-    }
+
+    //For each state of the current iteration
+    for(size_t i = 0; i < a->size; i++)
+        //update the value of the current state        
+        a->states[iteration][i] = (a->rule[somme(a, iteration, i)] - '0');
 }
 
+/**
+ * @brief Function to get the index of the new value of the current state
+ * 
+ * @param a automaton* : The pointer of the automaton
+ * @param iteration size_t : The index of the iteration
+ * @param index size_t : The index of the current state
+ * @return unsigned char The new value of the current state
+ */
 unsigned char somme(automaton* a, size_t iteration, size_t index) {
 
-  unsigned char returned_value = 0;
+    //Initialise a variable for the sum
+    unsigned char returned_value = 0;
 
-  returned_value += (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
-  returned_value += (a->states[iteration - 1][index]);
-  returned_value += (index == (unsigned char)(a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
+    //Add the value of each neighboor to the sum
+    returned_value += (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
+    returned_value += (a->states[iteration - 1][index]);
+    returned_value += (index == (unsigned int)(a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
 
-  return returned_value;
+    //Return the sum
+    return returned_value;
 }
 
-unsigned char* get_neighbours(automaton* a, size_t iteration, size_t index) {
-    unsigned char* returned_neighbours = (unsigned char*)malloc(3 * sizeof(unsigned char));
-
-    returned_neighbours[0] = (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
-    returned_neighbours[1] = a->states[iteration - 1][index];
-    returned_neighbours[2] = (index == (unsigned)(a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
-
-    return returned_neighbours;
-}
-
+/**
+ * @brief Function to print the automaton
+ * 
+ * @param a automaton* : The pointer of the automaton
+ */
 void print(automaton* a) {
-  (a->_printer)((void*)a);
+    
+    //Print the autoamton
+    (a->_printer)((void*)a);
 }
