@@ -29,7 +29,7 @@ pgm* init_pgm(const unsigned int width, const unsigned int height, const unsigne
     returned_pgm->height = height;          //The height
     returned_pgm->max_value = max_value;    //The maximum value in the pixels
 
-    //Allocate space the the array of arrays
+    //Allocate space for matrix of pixels
     returned_pgm->image = (unsigned char**)malloc(sizeof(unsigned char*) * height);
     //Test to check if the allocation was successful
     if(returned_pgm->image == NULL) fprintf(stderr, "Couldn't allocate space for the image (HEIGHT_ERROR)");
