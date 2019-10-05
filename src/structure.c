@@ -112,7 +112,7 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
     If the given value for Start dosen't have the right size,
     an assert will stop the program at the beginning of init()
 
-    TODO : Improve read method to prevent side effect
+    TODO : Improve read method to prevent side effect or errors
     */
     char* start = (char*)malloc(sizeof(char) * (2 * size));
 
@@ -127,7 +127,7 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
     If the given value for rule dosen't have the right size,
     an assert will stop the program at the beginning of init()
 
-    TODO : Improve read method to prevent side effect
+    TODO : Improve read method to prevent side effect or errors
     */
     char rule[BUFFER_SIZE];
 
@@ -146,6 +146,7 @@ automaton* init_file(char* file_path, void (* _printer)(void*)) {
                                     rule,
                                     _printer);
 
+    //Free the string containing the first iteration
     free(start);
     start = NULL;                               
 
