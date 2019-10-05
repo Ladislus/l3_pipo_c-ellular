@@ -33,8 +33,7 @@ archive :
 	tar -cf archive.tar.gz src/ include/ Makefile
 
 doc :
-	rm -rf doc
-	mkdir doc
+	test -d doc || mkdir doc
 	doxygen Doxyfile
 
 clean :
