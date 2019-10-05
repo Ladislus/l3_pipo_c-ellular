@@ -5,10 +5,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "constants.h"
 
 struct pgm {
-     unsigned char width;
-     unsigned char height;
+     unsigned int width;
+     unsigned int height;
      unsigned char max_value;
      unsigned char** image;
 };
