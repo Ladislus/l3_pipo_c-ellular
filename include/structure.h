@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 #include "constants.h"
-#include "converters.h"
 #include "assert.h"
 
 automaton* init(unsigned char states_number,
