@@ -30,11 +30,11 @@ prepare :
 	test -d obj || mkdir obj
 
 archive :
-	tar -cf archive.tar.gz src/ include/ Makefile
+	tar -zcvf WALCAK_DRIEUX.tar.gz src/ include/ Makefile README.md
 
 doc :
 	test -d doc || mkdir doc
 	doxygen Doxyfile
 
 clean :
-	rm -rf obj exec output.pgm
+	rm -rf obj exec output.pgm WALCAK_DRIEUX.tar.gz
