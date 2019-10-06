@@ -226,7 +226,7 @@ unsigned char somme(automaton* a, size_t iteration, size_t index) {
     //Add the value of each neighboor to the sum
     returned_value += (!index ? a->states[iteration - 1][a->size - 1] : a->states[iteration - 1][index - 1]);
     returned_value += (a->states[iteration - 1][index]);
-    returned_value += (index == (unsigned int)(a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
+    returned_value += (index == (a->size - 1) ? a->states[iteration - 1][0] : a->states[iteration - 1][index + 1]);
 
     //Return the sum
     return returned_value;
